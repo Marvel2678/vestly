@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: AdminPass123
+      POSTGRES_DB: investment_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d investment_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://postgres:AdminPass123@postgres:5432/investment_db
+      JWT_ACCESS_SECRET: change_me_access_secret_32chars_min
+      JWT_REFRESH_SECRET: change_me_refresh_secret_32chars_min
+      JWT_ACCESS_EXPIRES_IN: 15m
+      JWT_REFRESH_EXPIRES_IN: 7d
+      PORT: 4000
+      CLIENT_ORIGIN: http://localhost:5173
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      VITE_API_URL: http://localhost:4000
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:

@@ -1,0 +1,17 @@
+{
+  "name": "vestly",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "dev": "pnpm --parallel --filter api --filter web dev",
+    "build": "pnpm --filter './apps/*' build",
+    "db:generate": "pnpm --filter api db:generate",
+    "db:migrate": "pnpm --filter api db:migrate",
+    "db:studio": "pnpm --filter api db:studio"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
