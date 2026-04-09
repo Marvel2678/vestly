@@ -49,7 +49,9 @@ api.interceptors.response.use(
     isRefreshing = true;
 
     try {
-      const { data } = await publicApi.post<{ data: { accessToken: string } }>("/auth/refresh");
+      const { data } = await publicApi.post<{ data: { accessToken: string } }>(
+        "/auth/refresh",
+      );
       const newToken = data.data.accessToken;
       setAccessToken(newToken);
       refreshQueue.forEach((cb) => cb(newToken));
@@ -64,7 +66,7 @@ api.interceptors.response.use(
     } finally {
       isRefreshing = false;
     }
-  }
+  },
 );
 
 // ─── In-memory token store ────────────────────────────────────────────────────

@@ -19,6 +19,6 @@
       "@vestly/shared": ["../../packages/shared/src/index.ts"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "vite-env.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
