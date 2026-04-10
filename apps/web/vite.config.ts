@@ -12,4 +12,9 @@ export default defineConfig({
       },
     },
   },
+  resolve: {
+    alias: {
+      "@vestly/shared": "@vestly/shared/src/index.ts",
+    },
+  },
 });
