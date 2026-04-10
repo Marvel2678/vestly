@@ -9,7 +9,7 @@ import {
   recalculate,
 } from "../controllers/wallets.controller";
 
-const router = Router();
+const router: Router = Router();
 
 router.use(requireAuth);
 router.get("/", list);

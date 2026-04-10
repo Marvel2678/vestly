@@ -2,6 +2,7 @@ import { eq, and } from "drizzle-orm";
 import { db } from "../db";
 import { wallets } from "../db/schema/wallets";
 import { CreateWalletDto, UpdateWalletDto } from "@vestly/shared";
+import { recalculateWallet } from "./transactions.service";
 
 export async function getUserWallets(userId: string) {
   return db.select().from(wallets).where(eq(wallets.userId, userId));
@@ -51,7 +52,6 @@ export async function recalculateAllWallets(userId: string) {
     .from(wallets)
     .where(eq(wallets.userId, userId));
 
-  const { recalculateWallet } = await import("./transactions.service");
   await Promise.all(userWallets.map((w) => recalculateWallet(w.id)));
   return getUserWallets(userId);
 }

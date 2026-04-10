@@ -1,20 +1,17 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "CommonJS",
-    "ignoreDeprecations": "6.0",
-    "moduleResolution": "node",
+    "module": "node16",
+    // "ignoreDeprecations": "6.0",
+    "moduleResolution": "node16",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "declaration": true,
-    "paths": {
-      "@vestly/shared": ["../../packages/shared/src/index.ts"]
-    }
+    "declaration": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "@vestly/shared/**/*"],
   "exclude": ["node_modules", "dist"]
 }

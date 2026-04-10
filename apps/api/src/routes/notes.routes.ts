@@ -1,8 +1,14 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/auth.middleware";
-import { list, get, create, update, remove } from "../controllers/notes.controller";
+import {
+  list,
+  get,
+  create,
+  update,
+  remove,
+} from "../controllers/notes.controller";
 
-const router = Router();
+const router: Router = Router();
 
 router.use(requireAuth);
 router.get("/", list);

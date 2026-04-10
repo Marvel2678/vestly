@@ -9,13 +9,13 @@ import transactionsRoutes from "./routes/transactions.routes";
 import notesRoutes from "./routes/notes.routes";
 import statsRoutes from "./routes/stats.routes";
 
-const app = express();
+const app: express.Application = express();
 
 app.use(
   cors({
     origin: process.env.CLIENT_ORIGIN ?? "http://localhost:5173",
     credentials: true,
-  })
+  }),
 );
 app.use(express.json());
 app.use(cookieParser());
