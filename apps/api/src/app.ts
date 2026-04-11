@@ -8,12 +8,13 @@ import walletsRoutes from "./routes/wallets.routes";
 import transactionsRoutes from "./routes/transactions.routes";
 import notesRoutes from "./routes/notes.routes";
 import statsRoutes from "./routes/stats.routes";
+import { getEnv } from "./utils/getenv";
 
 const app: express.Application = express();
 
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN ?? "http://localhost:5173",
+    origin: getEnv("CLIENT_ORIGIN"),
     credentials: true,
   }),
 );

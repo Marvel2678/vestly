@@ -2,9 +2,10 @@ import "dotenv/config";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { Pool } from "pg";
+import { getEnv } from "../utils/getenv";
 
 async function runMigrations() {
-  const pool = new Pool({ connectionString: process.env.DATABASE_URL! });
+  const pool = new Pool({ connectionString: getEnv("DATABASE_URL")! });
   const db = drizzle(pool);
 
   console.log("Running migrations...");

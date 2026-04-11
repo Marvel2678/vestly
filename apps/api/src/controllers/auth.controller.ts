@@ -7,11 +7,13 @@ import {
   revokeRefreshToken,
 } from "../services/auth.service";
 import { sendError, sendSuccess } from "../utils/response";
+import { getEnv } from "../utils/getenv";
 
 const REFRESH_COOKIE = "refresh_token";
+const NODE_ENV = getEnv("NODE_ENV")!;
 const COOKIE_OPTS = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
+  secure: NODE_ENV === "production",
   sameSite: "strict" as const,
   maxAge: 7 * 24 * 60 * 60 * 1000,
   path: "/",
